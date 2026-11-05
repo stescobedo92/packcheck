@@ -1,18 +1,18 @@
 PackCheck - batch summary
-Generated: 2026-11-05T15:59:45Z | OCR engine: deterministic-simulator
+Generated: 2026-11-05T16:02:21Z | OCR engine: deterministic-simulator
 
-Cases: 17 | Passed: 4 | Rejected: 13 | Matching expectations: 17/17
-Seeded-error recall: 100.0% (11/11) | Critical recall: 100.0% (10/10)
+Cases: 29 | Passed: 10 | Rejected: 19 | Matching expectations: 29/29
+Seeded-error recall: 100.0% (15/15) | Critical recall: 100.0% (13/13)
 False rejects: 0
-Critical escapes without gate: 10 | with gate: 0
-Simulated returns per 1000 boxes (demo batch): before=588.2 after=0.0
-Cycle per box: mean=0.000ms p50=0.000ms p95=0.000ms max=0.000ms
+Critical escapes without gate: 13 | with gate: 0
+Simulated returns per 1000 boxes (demo batch): before=448.3 after=0.0
+Cycle per box: mean=0.051ms p50=0.000ms p95=0.513ms max=0.976ms
 
 Per-field reading (against the printed label):
-  text     success=76.5% meanCER=0.0102 attempts=17 exact=13
-  gtin     success=100.0% meanCER=0.0000 attempts=17 exact=17
-  lot      success=100.0% meanCER=0.0000 attempts=17 exact=17
-  expiry   success=94.1% meanCER=0.0588 attempts=17 exact=16
+  text     success=72.4% meanCER=0.0119 attempts=29 exact=21
+  gtin     success=100.0% meanCER=0.0000 attempts=29 exact=29
+  lot      success=100.0% meanCER=0.0000 attempts=29 exact=29
+  expiry   success=93.1% meanCER=0.0690 attempts=29 exact=27
 
 Cases:
   [OK  ] 01-clean-font-a                  expected=pass               got=pass               image=01-clean-font-a.png
@@ -32,3 +32,15 @@ Cases:
   [OK  ] 15-short-kit-quantity            expected=reject             got=reject             image=15-short-kit-quantity.png
   [OK  ] 16-extra-component               expected=reject             got=reject             image=16-extra-component.png
   [OK  ] 17-unknown-order                 expected=reject             got=reject             image=17-unknown-order.png
+  [OK  ] 18-clean-hose-kit                expected=pass               got=pass               image=18-clean-hose-kit.png
+  [OK  ] 19-clean-pump-kit                expected=pass               got=pass               image=19-clean-pump-kit.png
+  [OK  ] 20-faint-hose-kit                expected=pass_with_warnings got=pass_with_warnings image=20-faint-hose-kit.png
+  [OK  ] 21-curved-pump-kit               expected=pass_with_warnings got=pass_with_warnings image=21-curved-pump-kit.png
+  [OK  ] 22-blurry-pump-kit               expected=reject             got=reject             image=22-blurry-pump-kit.png
+  [OK  ] 23-glare-brake-kit               expected=reject             got=reject             image=23-glare-brake-kit.png
+  [OK  ] 24-month-year-expiry             expected=pass               got=pass               image=24-month-year-expiry.png
+  [OK  ] 25-slash-expiry                  expected=pass               got=pass               image=25-slash-expiry.png
+  [OK  ] 26-invalid-lot-format            expected=reject             got=reject             image=26-invalid-lot-format.png
+  [OK  ] 27-empty-product-text            expected=reject             got=reject             image=27-empty-product-text.png
+  [OK  ] 28-over-quantity                 expected=reject             got=reject             image=28-over-quantity.png
+  [OK  ] 29-wrong-lot-pump-kit            expected=reject             got=reject             image=29-wrong-lot-pump-kit.png

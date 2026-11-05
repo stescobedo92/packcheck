@@ -125,11 +125,23 @@ The demo matrix declares its ground truth **before** anything runs: expected ver
 | 06 | Glare over the expiry date | `reject` (`LABEL_ILLEGIBLE` + `EXPIRY_UNREADABLE`) |
 | 07-15, 17 | Seeded **critical** errors: foreign GTIN, invalid check digit, wrong lot, wrong/expired/unreadable expiry, wrong product label, missing kit item, short quantity, order missing from SQL | `reject` (all must be detected) |
 | 16 | Extra component (seeded *major*) | `reject` (`CONTENT_EXTRA`) |
+| 18 | Clean, hydraulic hose kit order | `pass` |
+| 19 | Clean, electric pump kit order, font B | `pass` |
+| 20 | Faint print on the hose kit | `pass_with_warnings` (`TEXT_DEGRADED`) |
+| 21 | Curved surface on the pump kit | `pass_with_warnings` (`TEXT_DEGRADED`) |
+| 22 | Blurry pump kit label | `reject` (`LABEL_ILLEGIBLE`) |
+| 23 | Glare over the brake kit expiry | `reject` (`LABEL_ILLEGIBLE` + `EXPIRY_UNREADABLE`) |
+| 24 | Expiry printed as month/year (`06/2027`) | `pass` (accepted format) |
+| 25 | Expiry printed as `DD/MM/YYYY` | `pass` (accepted format) |
+| 26 | Seeded **critical**: lot printed with an invalid format | `reject` (`LOT_INVALID`) |
+| 27 | Seeded **critical**: product text missing from the label | `reject` (`TEXT_MISSING`) |
+| 28 | Seeded *major*: excess quantity in the box | `reject` (`CONTENT_OVER`) |
+| 29 | Seeded **critical**: pump kit lot differs from the order | `reject` (`LOT_MISMATCH`) |
 
 ![Clean label](evidence/labels/01-clean-font-a.png)
 ![Label with glare](evidence/labels/06-glare.png)
 
-*Above: two of the generated images (clean font A, and glare covering the expiry date). The rest are in [evidence/labels](evidence/labels).*
+*Above: two of the 29 generated images (clean font A, and glare covering the expiry date). The rest are in [evidence/labels](evidence/labels).*
 
 ### Generated evidence
 
@@ -155,7 +167,7 @@ The integration tests (`internal/app/integration_test.go`, `cmd/packcheck/main_t
 
 ### Observed results (development machine)
 
-Real batch output: `Cases: 17 | Passed: 4 | Rejected: 13 | Matching expectations: 17/17`, `Critical recall: 100.0% (10/10)`, `Seeded-error recall: 100.0% (11/11)`, `False rejects: 0`, critical escapes `10 → 0`, per-field reading: text 76.5% success (mean CER 0.0102), GTIN 100%, lot 100%, expiry 94.1% (glare blocks one read). Cycle measured by repetition against SQLite: **26 µs per box** (500 validations in 13.0 ms). Benchmarks (`-benchtime=20000x`): in-memory validation ≈ 2.8 µs/op; ASCII-path CER at 2 allocations/op.
+Real batch output: `Cases: 29 | Passed: 10 | Rejected: 19 | Matching expectations: 29/29`, `Critical recall: 100.0% (13/13)`, `Seeded-error recall: 100.0% (15/15)`, `False rejects: 0`, critical escapes `13 → 0`, per-field reading: text 72.4% success (mean CER 0.0119), GTIN 100%, lot 100%, expiry 93.1% (glare blocks two reads). Cycle measured by repetition against SQLite: **26 µs per box** (500 validations in 13.0 ms). Benchmarks (`-benchtime=20000x`): in-memory validation ≈ 2.8 µs/op; ASCII-path CER at 2 allocations/op.
 
 Verified quality: `go vet` clean; `go test ./...` green (56-93% statement coverage per package; cores `metrics` 93.3% and `validation` 90.7%); `go test -race` clean for `app`, `validation`, and `sqlite`; `staticcheck` with no findings; `gosec` at zero after the documented triage; `govulncheck`: *"No vulnerabilities found"*. Reproduce with `.\scripts\verify.ps1` or in CI.
 

@@ -1,60 +1,60 @@
 {
-  "generated_at": "2026-11-05T15:59:45Z",
+  "generated_at": "2026-11-05T16:02:21Z",
   "ocr_engine": "deterministic-simulator",
   "fields": [
     {
       "field": "text",
-      "attempts": 17,
-      "exact": 13,
-      "success_rate": 0.7647058823529411,
-      "mean_cer": 0.01019850664724094
+      "attempts": 29,
+      "exact": 21,
+      "success_rate": 0.7241379310344828,
+      "mean_cer": 0.011947719196571553
     },
     {
       "field": "gtin",
-      "attempts": 17,
-      "exact": 17,
+      "attempts": 29,
+      "exact": 29,
       "success_rate": 1,
       "mean_cer": 0
     },
     {
       "field": "lot",
-      "attempts": 17,
-      "exact": 17,
+      "attempts": 29,
+      "exact": 29,
       "success_rate": 1,
       "mean_cer": 0
     },
     {
       "field": "expiry",
-      "attempts": 17,
-      "exact": 16,
-      "success_rate": 0.9411764705882353,
-      "mean_cer": 0.058823529411764705
+      "attempts": 29,
+      "exact": 27,
+      "success_rate": 0.9310344827586207,
+      "mean_cer": 0.06896551724137931
     }
   ],
   "aggregate": {
-    "total": 17,
-    "passed": 4,
-    "rejected": 13,
-    "matched_expected": 17,
+    "total": 29,
+    "passed": 10,
+    "rejected": 19,
+    "matched_expected": 29,
     "mismatched": 0,
-    "seeded_errors": 11,
-    "seeded_detected": 11,
+    "seeded_errors": 15,
+    "seeded_detected": 15,
     "overall_recall": 1,
-    "seeded_critical": 10,
-    "seeded_critical_detected": 10,
+    "seeded_critical": 13,
+    "seeded_critical_detected": 13,
     "critical_recall": 1,
     "false_rejects": 0,
     "false_rejects_by_shift": {},
-    "escapes_before_gate": 10,
+    "escapes_before_gate": 13,
     "escapes_after_gate": 0,
-    "simulated_returns_per_1000_before": 588.2352941176471,
+    "simulated_returns_per_1000_before": 448.2758620689655,
     "simulated_returns_per_1000_after": 0,
     "cycle": {
-      "count": 17,
-      "mean_ms": 0,
+      "count": 29,
+      "mean_ms": 0.051348,
       "p50_ms": 0,
-      "p95_ms": 0,
-      "max_ms": 0
+      "p95_ms": 0.513,
+      "max_ms": 0.9761
     }
   },
   "cases": [
@@ -89,7 +89,7 @@
       "matches_expected": true,
       "seeded_error": false,
       "seeded_critical": false,
-      "cycle_nanos": 0
+      "cycle_nanos": 976100
     },
     {
       "case_id": "02-clean-font-b-supplier-south",
@@ -682,7 +682,7 @@
       "matches_expected": true,
       "seeded_error": true,
       "seeded_critical": true,
-      "cycle_nanos": 0
+      "cycle_nanos": 513000
     },
     {
       "case_id": "15-short-kit-quantity",
@@ -809,6 +809,513 @@
           "message": "production order does not exist in SQL orders table",
           "expected": "existing order",
           "got": "OP-9999-9999"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": true,
+      "seeded_critical": true,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "18-clean-hose-kit",
+      "description": "Clean label, hydraulic hose kit order: correct box",
+      "box_id": "BOX-0018",
+      "order_id": "OP-2026-0003",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "18-clean-hose-kit.png",
+      "image_sha256": "55e2602ba294373b1d7874d31648c3c693aa22ef4e598ecd5d6173ca9bc7f4cf",
+      "truth": {
+        "product_text": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "L26063C",
+        "expiry_text": "2027-09-30"
+      },
+      "reading": {
+        "product_text": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "L26063C",
+        "expiry_text": "2027-09-30",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "pass",
+      "got_verdict": "pass",
+      "expected_codes": [],
+      "findings": [],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "19-clean-pump-kit",
+      "description": "Clean label font B, electric pump kit order: correct box",
+      "box_id": "BOX-0019",
+      "order_id": "OP-2026-0004",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "19-clean-pump-kit.png",
+      "image_sha256": "2d1be650a8b052ca85abcf3a50d884fb15476dd91a378ab75041012e8c363f16",
+      "truth": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31"
+      },
+      "reading": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "pass",
+      "got_verdict": "pass",
+      "expected_codes": [],
+      "findings": [],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "20-faint-hose-kit",
+      "description": "Faint print on the hose kit: tolerated text degradation",
+      "box_id": "BOX-0020",
+      "order_id": "OP-2026-0003",
+      "shift": "A",
+      "profile": "faint",
+      "image_file": "20-faint-hose-kit.png",
+      "image_sha256": "e46342746b5cdf8fc8d7f20c0b512e8f0e703cd87e2fea0deabb3454b037f366",
+      "truth": {
+        "product_text": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "L26063C",
+        "expiry_text": "2027-09-30"
+      },
+      "reading": {
+        "product_text": "HYDR4ULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "L26063C",
+        "expiry_text": "2027-09-30",
+        "confidence": 0.84,
+        "legibility": 0.78,
+        "quality_known": true
+      },
+      "expected_verdict": "pass_with_warnings",
+      "got_verdict": "pass_with_warnings",
+      "expected_codes": [
+        "TEXT_DEGRADED"
+      ],
+      "findings": [
+        {
+          "field": "text",
+          "code": "TEXT_DEGRADED",
+          "severity": "minor",
+          "message": "product text degraded but recognizable (CER=0.029)",
+          "expected": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+          "got": "HYDR4ULIC HOSE ASSEMBLY REPAIR KIT"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "21-curved-pump-kit",
+      "description": "Curved surface on the pump kit: tolerated text degradation",
+      "box_id": "BOX-0021",
+      "order_id": "OP-2026-0004",
+      "shift": "B",
+      "profile": "curved",
+      "image_file": "21-curved-pump-kit.png",
+      "image_sha256": "2dc339c306f18e77b13316f37eb328a02b344f535fdeb67429815ba1b0e23e7f",
+      "truth": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31"
+      },
+      "reading": {
+        "product_text": "FLECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31",
+        "confidence": 0.83,
+        "legibility": 0.76,
+        "quality_known": true
+      },
+      "expected_verdict": "pass_with_warnings",
+      "got_verdict": "pass_with_warnings",
+      "expected_codes": [
+        "TEXT_DEGRADED"
+      ],
+      "findings": [
+        {
+          "field": "text",
+          "code": "TEXT_DEGRADED",
+          "severity": "minor",
+          "message": "product text degraded but recognizable (CER=0.029)",
+          "expected": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+          "got": "FLECTRIC WATER PUMP REPLACEMENT KIT"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "22-blurry-pump-kit",
+      "description": "Blurry pump kit label: rejected as illegible",
+      "box_id": "BOX-0022",
+      "order_id": "OP-2026-0004",
+      "shift": "C",
+      "profile": "blur",
+      "image_file": "22-blurry-pump-kit.png",
+      "image_sha256": "21e73b386b7210cb42134695ffef9f98c450f9ada78905ce85c163b46809995e",
+      "truth": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31"
+      },
+      "reading": {
+        "product_text": "FLFCTR1C WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31",
+        "confidence": 0.68,
+        "legibility": 0.55,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "LABEL_ILLEGIBLE"
+      ],
+      "findings": [
+        {
+          "field": "legibility",
+          "code": "LABEL_ILLEGIBLE",
+          "severity": "major",
+          "message": "label reading quality below threshold; reprint or rescan required",
+          "expected": "confidence\u003e=0.80 legibility\u003e=0.70",
+          "got": "confidence=0.68 legibility=0.55"
+        },
+        {
+          "field": "text",
+          "code": "TEXT_MISMATCH",
+          "severity": "critical",
+          "message": "product text does not match production order",
+          "expected": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+          "got": "FLFCTR1C WATER PUMP REPLACEMENT KIT"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "23-glare-brake-kit",
+      "description": "Glare over the brake kit expiry: rejected, date unread",
+      "box_id": "BOX-0023",
+      "order_id": "OP-2026-0001",
+      "shift": "A",
+      "profile": "glare",
+      "image_file": "23-glare-brake-kit.png",
+      "image_sha256": "3aaaff5075a8932015e2599c42a3b4070e6c6f3bccf9349069767f4aa2d5638d",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "reading": {
+        "product_text": "HFAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "",
+        "confidence": 0.51,
+        "legibility": 0.48,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "LABEL_ILLEGIBLE",
+        "EXPIRY_UNREADABLE"
+      ],
+      "findings": [
+        {
+          "field": "legibility",
+          "code": "LABEL_ILLEGIBLE",
+          "severity": "major",
+          "message": "label reading quality below threshold; reprint or rescan required",
+          "expected": "confidence\u003e=0.80 legibility\u003e=0.70",
+          "got": "confidence=0.51 legibility=0.48"
+        },
+        {
+          "field": "text",
+          "code": "TEXT_DEGRADED",
+          "severity": "minor",
+          "message": "product text degraded but recognizable (CER=0.029)",
+          "expected": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+          "got": "HFAVY DUTY FRONT BRAKE SERVICE KIT"
+        },
+        {
+          "field": "expiry",
+          "code": "EXPIRY_UNREADABLE",
+          "severity": "critical",
+          "message": "expiry date cannot be parsed from label",
+          "expected": "2027-06-30"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "24-month-year-expiry",
+      "description": "Expiry printed as month/year (06/2027): accepted format, correct box",
+      "box_id": "BOX-0024",
+      "order_id": "OP-2026-0001",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "24-month-year-expiry.png",
+      "image_sha256": "75e9f88c18638f353459c35e3147baead9cd80595252c2e8ba3e0e1da56a60ac",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "06/2027"
+      },
+      "reading": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "06/2027",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "pass",
+      "got_verdict": "pass",
+      "expected_codes": [],
+      "findings": [],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "25-slash-expiry",
+      "description": "Expiry printed as DD/MM/YYYY (31/01/2027): accepted format, correct box",
+      "box_id": "BOX-0025",
+      "order_id": "OP-2026-0002",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "25-slash-expiry.png",
+      "image_sha256": "0409b8f6fb120baeaaa6f4e3350a300a9f8be23cf168899e3250cf1575a3d522",
+      "truth": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "31/01/2027"
+      },
+      "reading": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "31/01/2027",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "pass",
+      "got_verdict": "pass",
+      "expected_codes": [],
+      "findings": [],
+      "matches_expected": true,
+      "seeded_error": false,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "26-invalid-lot-format",
+      "description": "Seeded critical: lot printed with an invalid format",
+      "box_id": "BOX-0026",
+      "order_id": "OP-2026-0003",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "26-invalid-lot-format.png",
+      "image_sha256": "e0e65c4f5d8788c2a3b19fc3c1ec0f63b303ca6c555d549f4147d4e9d7e946cd",
+      "truth": {
+        "product_text": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "##BAD##",
+        "expiry_text": "2027-09-30"
+      },
+      "reading": {
+        "product_text": "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+        "gtin": "7501234500036",
+        "lot": "##BAD##",
+        "expiry_text": "2027-09-30",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "LOT_INVALID"
+      ],
+      "findings": [
+        {
+          "field": "lot",
+          "code": "LOT_INVALID",
+          "severity": "critical",
+          "message": "lot has invalid format or is unreadable",
+          "expected": "L26063C",
+          "got": "##BAD##"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": true,
+      "seeded_critical": true,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "27-empty-product-text",
+      "description": "Seeded critical: product text missing from the label",
+      "box_id": "BOX-0027",
+      "order_id": "OP-2026-0004",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "27-empty-product-text.png",
+      "image_sha256": "7a8e94ec0e8811897cfbf9324650ca4479a1df2c2ea08024c23f5f15147223e9",
+      "truth": {
+        "product_text": "",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31"
+      },
+      "reading": {
+        "product_text": "",
+        "gtin": "7501234500043",
+        "lot": "L26074D",
+        "expiry_text": "2028-03-31",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "TEXT_MISSING"
+      ],
+      "findings": [
+        {
+          "field": "text",
+          "code": "TEXT_MISSING",
+          "severity": "critical",
+          "message": "product text is empty or unreadable",
+          "expected": "ELECTRIC WATER PUMP REPLACEMENT KIT"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": true,
+      "seeded_critical": true,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "28-over-quantity",
+      "description": "Seeded major: more seals in the box than the order requires",
+      "box_id": "BOX-0028",
+      "order_id": "OP-2026-0002",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "28-over-quantity.png",
+      "image_sha256": "30de9b2efab40774c899c09b803b9b7c4f8d781edf27448edc9f2742dc1e32bf",
+      "truth": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "2027-01-31"
+      },
+      "reading": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "2027-01-31",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "CONTENT_OVER"
+      ],
+      "findings": [
+        {
+          "field": "contents",
+          "code": "CONTENT_OVER",
+          "severity": "major",
+          "message": "kit component SEAL-02 quantity exceeds the order",
+          "expected": "SEAL-02 x2",
+          "got": "SEAL-02 x5"
+        }
+      ],
+      "matches_expected": true,
+      "seeded_error": true,
+      "seeded_critical": false,
+      "cycle_nanos": 0
+    },
+    {
+      "case_id": "29-wrong-lot-pump-kit",
+      "description": "Seeded critical: pump kit lot differs from the order",
+      "box_id": "BOX-0029",
+      "order_id": "OP-2026-0004",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "29-wrong-lot-pump-kit.png",
+      "image_sha256": "83e2967124322ba32a6eef85a52db493c6c249e2b3e1570a1eb5f25ee4a794d7",
+      "truth": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L99999X",
+        "expiry_text": "2028-03-31"
+      },
+      "reading": {
+        "product_text": "ELECTRIC WATER PUMP REPLACEMENT KIT",
+        "gtin": "7501234500043",
+        "lot": "L99999X",
+        "expiry_text": "2028-03-31",
+        "confidence": 0.99,
+        "legibility": 0.98,
+        "quality_known": true
+      },
+      "expected_verdict": "reject",
+      "got_verdict": "reject",
+      "expected_codes": [
+        "LOT_MISMATCH"
+      ],
+      "findings": [
+        {
+          "field": "lot",
+          "code": "LOT_MISMATCH",
+          "severity": "critical",
+          "message": "lot does not match production order",
+          "expected": "L26074D",
+          "got": "L99999X"
         }
       ],
       "matches_expected": true,

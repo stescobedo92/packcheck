@@ -53,6 +53,32 @@ func DemoOrders() []domain.Order {
 			},
 			Supplier: "SOUTH PRINT LABELS", FontProfile: "font-b",
 		},
+		{
+			ID: "OP-2026-0003", SKU: "HOSE-KIT-03",
+			ProductName: "HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+			GTIN:        domain.WithCheckDigit("750123450003"),
+			Lot:         "L26063C",
+			Expiry:      time.Date(2027, 9, 30, 0, 0, 0, 0, time.UTC),
+			Contents: []domain.ContentItem{
+				{Code: "HOSE-03", Description: "Hydraulic hose", Qty: 1},
+				{Code: "FITTING-03", Description: "Hose fitting", Qty: 4},
+				{Code: "CLAMP-03", Description: "Hose clamp", Qty: 2},
+			},
+			Supplier: "NORTH LABELS", FontProfile: "font-a",
+		},
+		{
+			ID: "OP-2026-0004", SKU: "PUMP-KIT-04",
+			ProductName: "ELECTRIC WATER PUMP REPLACEMENT KIT",
+			GTIN:        domain.WithCheckDigit("750123450004"),
+			Lot:         "L26074D",
+			Expiry:      time.Date(2028, 3, 31, 0, 0, 0, 0, time.UTC),
+			Contents: []domain.ContentItem{
+				{Code: "PUMP-04", Description: "Electric water pump", Qty: 1},
+				{Code: "GASKET-04", Description: "Pump gasket", Qty: 1},
+				{Code: "BOLT-04", Description: "Mounting bolt", Qty: 4},
+			},
+			Supplier: "SOUTH PRINT LABELS", FontProfile: "font-b",
+		},
 	}
 }
 
@@ -101,8 +127,9 @@ type Case struct {
 // degradation, no-reads that must be rejected, and seeded errors. It expects
 // orders as returned by DemoOrders (same length and order).
 func DemoCases(orders []domain.Order) []Case {
-	o1, o2 := orders[0], orders[1]
+	o1, o2, o3, o4 := orders[0], orders[1], orders[2], orders[3]
 	t1, t2 := TruthOfOrder(o1), TruthOfOrder(o2)
+	t3, t4 := TruthOfOrder(o3), TruthOfOrder(o4)
 	cloneContents := func(o domain.Order) []domain.ContentItem {
 		out := make([]domain.ContentItem, len(o.Contents))
 		copy(out, o.Contents)
@@ -192,7 +219,57 @@ func DemoCases(orders []domain.Order) []Case {
 			ExpectedVerdict: domain.VerdictReject, ExpectedCodes: []string{domain.CodeOrderNotFound},
 			SeededError: true, SeededCritical: true},
 	}
-	return append(cases, seeded...)
+	extended := []Case{
+		{ID: "18-clean-hose-kit", Description: "Clean label, hydraulic hose kit order: correct box",
+			OrderID: o3.ID, BaseOrder: o3, BoxID: "BOX-0018", Shift: "B", Profile: ocr.ProfileClean,
+			Truth: t3, Contents: cloneContents(o3), ExpectedVerdict: domain.VerdictPass},
+		{ID: "19-clean-pump-kit", Description: "Clean label font B, electric pump kit order: correct box",
+			OrderID: o4.ID, BaseOrder: o4, BoxID: "BOX-0019", Shift: "C", Profile: ocr.ProfileClean,
+			Truth: t4, Contents: cloneContents(o4), ExpectedVerdict: domain.VerdictPass},
+		{ID: "20-faint-hose-kit", Description: "Faint print on the hose kit: tolerated text degradation",
+			OrderID: o3.ID, BaseOrder: o3, BoxID: "BOX-0020", Shift: "A", Profile: ocr.ProfileFaint,
+			Truth: t3, Contents: cloneContents(o3), ExpectedVerdict: domain.VerdictPassWithWarning,
+			ExpectedCodes: []string{domain.CodeTextDegraded}},
+		{ID: "21-curved-pump-kit", Description: "Curved surface on the pump kit: tolerated text degradation",
+			OrderID: o4.ID, BaseOrder: o4, BoxID: "BOX-0021", Shift: "B", Profile: ocr.ProfileCurved,
+			Truth: t4, Contents: cloneContents(o4), ExpectedVerdict: domain.VerdictPassWithWarning,
+			ExpectedCodes: []string{domain.CodeTextDegraded}},
+		{ID: "22-blurry-pump-kit", Description: "Blurry pump kit label: rejected as illegible",
+			OrderID: o4.ID, BaseOrder: o4, BoxID: "BOX-0022", Shift: "C", Profile: ocr.ProfileBlur,
+			Truth: t4, Contents: cloneContents(o4), ExpectedVerdict: domain.VerdictReject,
+			ExpectedCodes: []string{domain.CodeLabelIllegible}},
+		{ID: "23-glare-brake-kit", Description: "Glare over the brake kit expiry: rejected, date unread",
+			OrderID: o1.ID, BaseOrder: o1, BoxID: "BOX-0023", Shift: "A", Profile: ocr.ProfileGlare,
+			Truth: t1, Contents: cloneContents(o1), ExpectedVerdict: domain.VerdictReject,
+			ExpectedCodes: []string{domain.CodeLabelIllegible, domain.CodeExpiryUnreadable}},
+		{ID: "24-month-year-expiry", Description: "Expiry printed as month/year (06/2027): accepted format, correct box",
+			OrderID: o1.ID, BaseOrder: o1, BoxID: "BOX-0024", Shift: "B", Profile: ocr.ProfileClean,
+			Truth: withExpiry(t1, "06/2027"), Contents: cloneContents(o1), ExpectedVerdict: domain.VerdictPass},
+		{ID: "25-slash-expiry", Description: "Expiry printed as DD/MM/YYYY (31/01/2027): accepted format, correct box",
+			OrderID: o2.ID, BaseOrder: o2, BoxID: "BOX-0025", Shift: "C", Profile: ocr.ProfileClean,
+			Truth: withExpiry(t2, "31/01/2027"), Contents: cloneContents(o2), ExpectedVerdict: domain.VerdictPass},
+		{ID: "26-invalid-lot-format", Description: "Seeded critical: lot printed with an invalid format",
+			OrderID: o3.ID, BaseOrder: o3, BoxID: "BOX-0026", Shift: "A", Profile: ocr.ProfileClean,
+			Truth: withLot(t3, "##BAD##"), Contents: cloneContents(o3),
+			ExpectedVerdict: domain.VerdictReject, ExpectedCodes: []string{domain.CodeLotInvalid},
+			SeededError: true, SeededCritical: true},
+		{ID: "27-empty-product-text", Description: "Seeded critical: product text missing from the label",
+			OrderID: o4.ID, BaseOrder: o4, BoxID: "BOX-0027", Shift: "B", Profile: ocr.ProfileClean,
+			Truth: withText(t4, ""), Contents: cloneContents(o4),
+			ExpectedVerdict: domain.VerdictReject, ExpectedCodes: []string{domain.CodeTextMissing},
+			SeededError: true, SeededCritical: true},
+		{ID: "28-over-quantity", Description: "Seeded major: more seals in the box than the order requires",
+			OrderID: o2.ID, BaseOrder: o2, BoxID: "BOX-0028", Shift: "C", Profile: ocr.ProfileClean,
+			Truth: t2, Contents: setQty(cloneContents(o2), "SEAL-02", 5),
+			ExpectedVerdict: domain.VerdictReject, ExpectedCodes: []string{domain.CodeContentOver},
+			SeededError: true, SeededCritical: false},
+		{ID: "29-wrong-lot-pump-kit", Description: "Seeded critical: pump kit lot differs from the order",
+			OrderID: o4.ID, BaseOrder: o4, BoxID: "BOX-0029", Shift: "A", Profile: ocr.ProfileClean,
+			Truth: withLot(t4, "L99999X"), Contents: cloneContents(o4),
+			ExpectedVerdict: domain.VerdictReject, ExpectedCodes: []string{domain.CodeLotMismatch},
+			SeededError: true, SeededCritical: true},
+	}
+	return append(append(cases, seeded...), extended...)
 }
 
 func withGTIN(t ports.GroundTruth, gtin string) ports.GroundTruth { t.GTIN = gtin; return t }

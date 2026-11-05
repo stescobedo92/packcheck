@@ -43,8 +43,8 @@ func TestEndToEndBatchAgainstSQLite(t *testing.T) {
 	}
 
 	cases := DemoCases(orders)
-	if len(cases) != 17 {
-		t.Fatalf("demo matrix size = %d, want 17", len(cases))
+	if len(cases) != 29 {
+		t.Fatalf("demo matrix size = %d, want 29", len(cases))
 	}
 	labelsDir := filepath.Join(dir, "labels")
 	manifest, _, err := GenerateLabels(cases, labelsDir, time.Now().UTC())
@@ -106,8 +106,8 @@ func TestEndToEndBatchAgainstSQLite(t *testing.T) {
 	if a.FalseRejects != 0 {
 		t.Fatalf("false rejects = %d, gate is 0", a.FalseRejects)
 	}
-	if a.EscapesBeforeGate != 10 || a.EscapesAfterGate != 0 {
-		t.Fatalf("escapes before=%d after=%d, want 10/0", a.EscapesBeforeGate, a.EscapesAfterGate)
+	if a.EscapesBeforeGate != 13 || a.EscapesAfterGate != 0 {
+		t.Fatalf("escapes before=%d after=%d, want 13/0", a.EscapesBeforeGate, a.EscapesAfterGate)
 	}
 	if a.Cycle.P95Ms > 100 {
 		t.Fatalf("cycle p95 = %.3fms, gate is < 100ms per box", a.Cycle.P95Ms)
@@ -138,8 +138,8 @@ func TestEndToEndBatchAgainstSQLite(t *testing.T) {
 		t.Fatal("glare case must make expiry read success < 100%")
 	}
 	for field, s := range byField {
-		if s.attempts != 17 {
-			t.Errorf("field %s attempts=%d want 17", field, s.attempts)
+		if s.attempts != 29 {
+			t.Errorf("field %s attempts=%d want 29", field, s.attempts)
 		}
 	}
 }

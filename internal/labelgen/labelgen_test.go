@@ -113,6 +113,8 @@ func TestWrapKeepsFullProductNameWithinThreeLines(t *testing.T) {
 	for _, name := range []string{
 		"HEAVY DUTY FRONT BRAKE SERVICE KIT",
 		"INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+		"HYDRAULIC HOSE ASSEMBLY REPAIR KIT",
+		"ELECTRIC WATER PUMP REPLACEMENT KIT",
 	} {
 		lines := wrap(name, 28)
 		if len(lines) > 3 {

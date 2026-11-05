@@ -8,20 +8,20 @@ table{border-collapse:collapse;margin:1rem 0}td,th{border:1px solid #ccc;padding
 img{max-width:360px;border:1px solid #ccc}code{background:#f2f4f7;padding:.1rem .3rem}
 </style></head><body>
 <h1>PackCheck - Batch evidence</h1>
-<p>Generated: 2026-11-05T15:59:45Z | OCR engine: <code>deterministic-simulator</code></p>
+<p>Generated: 2026-11-05T16:02:21Z | OCR engine: <code>deterministic-simulator</code></p>
 <h2>Summary</h2>
 <table>
-<tr><th>Cases</th><td>17</td><th>Matching expectations</th><td>17/17</td></tr>
+<tr><th>Cases</th><td>29</td><th>Matching expectations</th><td>29/29</td></tr>
 <tr><th>Seeded critical recall</th><td>100.0%</td><th>False rejects</th><td>0</td></tr>
-<tr><th>Critical escapes without gate</th><td>10</td><th>Escapes with gate</th><td>0</td></tr>
-<tr><th>Mean cycle per box</th><td>0.000 ms</td><th>Cycle p95</th><td>0.000 ms</td></tr>
+<tr><th>Critical escapes without gate</th><td>13</td><th>Escapes with gate</th><td>0</td></tr>
+<tr><th>Mean cycle per box</th><td>0.051 ms</td><th>Cycle p95</th><td>0.513 ms</td></tr>
 </table>
 <h2>Per-field reading (against the printed label)</h2>
 <table><tr><th>Field</th><th>Success</th><th>Mean CER</th><th>Attempts</th></tr>
-<tr><td>text</td><td>76.5%</td><td>0.0102</td><td>17</td></tr>
-<tr><td>gtin</td><td>100.0%</td><td>0.0000</td><td>17</td></tr>
-<tr><td>lot</td><td>100.0%</td><td>0.0000</td><td>17</td></tr>
-<tr><td>expiry</td><td>94.1%</td><td>0.0588</td><td>17</td></tr>
+<tr><td>text</td><td>72.4%</td><td>0.0119</td><td>29</td></tr>
+<tr><td>gtin</td><td>100.0%</td><td>0.0000</td><td>29</td></tr>
+<tr><td>lot</td><td>100.0%</td><td>0.0000</td><td>29</td></tr>
+<tr><td>expiry</td><td>93.1%</td><td>0.0690</td><td>29</td></tr>
 </table>
 <h2>Cases</h2>
 
@@ -278,6 +278,186 @@ Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
 <tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
 <tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
 <ul><li><code>ORDER_NOT_FOUND</code> (critical): production order does not exist in SQL orders table [expected: existing order | got: OP-9999-9999]</li></ul>
+</section>
+
+<section class="">
+<h3>18-clean-hose-kit - Clean label, hydraulic hose kit order: correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>55e2602ba294373b1d7874d31648c3c693aa22ef4e598ecd5d6173ca9bc7f4cf</code></p>
+<img src="labels/18-clean-hose-kit.png" alt="Label 18-clean-hose-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HYDRAULIC HOSE ASSEMBLY REPAIR KIT</td><td>HYDRAULIC HOSE ASSEMBLY REPAIR KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500036</td><td>7501234500036</td></tr>
+<tr><td>Lot</td><td>L26063C</td><td>L26063C</td></tr>
+<tr><td>Expiry</td><td>2027-09-30</td><td>2027-09-30</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>19-clean-pump-kit - Clean label font B, electric pump kit order: correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>2d1be650a8b052ca85abcf3a50d884fb15476dd91a378ab75041012e8c363f16</code></p>
+<img src="labels/19-clean-pump-kit.png" alt="Label 19-clean-pump-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500043</td><td>7501234500043</td></tr>
+<tr><td>Lot</td><td>L26074D</td><td>L26074D</td></tr>
+<tr><td>Expiry</td><td>2028-03-31</td><td>2028-03-31</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>20-faint-hose-kit - Faint print on the hose kit: tolerated text degradation</h3>
+<p>Expected: <span class="pass_with_warnings">pass_with_warnings</span> |
+Got: <span class="pass_with_warnings">pass_with_warnings</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>faint</code></p>
+<p>Image SHA-256: <code>e46342746b5cdf8fc8d7f20c0b512e8f0e703cd87e2fea0deabb3454b037f366</code></p>
+<img src="labels/20-faint-hose-kit.png" alt="Label 20-faint-hose-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HYDRAULIC HOSE ASSEMBLY REPAIR KIT</td><td>HYDR4ULIC HOSE ASSEMBLY REPAIR KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500036</td><td>7501234500036</td></tr>
+<tr><td>Lot</td><td>L26063C</td><td>L26063C</td></tr>
+<tr><td>Expiry</td><td>2027-09-30</td><td>2027-09-30</td></tr></table>
+<ul><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.029) [expected: HYDRAULIC HOSE ASSEMBLY REPAIR KIT | got: HYDR4ULIC HOSE ASSEMBLY REPAIR KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>21-curved-pump-kit - Curved surface on the pump kit: tolerated text degradation</h3>
+<p>Expected: <span class="pass_with_warnings">pass_with_warnings</span> |
+Got: <span class="pass_with_warnings">pass_with_warnings</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>curved</code></p>
+<p>Image SHA-256: <code>2dc339c306f18e77b13316f37eb328a02b344f535fdeb67429815ba1b0e23e7f</code></p>
+<img src="labels/21-curved-pump-kit.png" alt="Label 21-curved-pump-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td><td>FLECTRIC WATER PUMP REPLACEMENT KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500043</td><td>7501234500043</td></tr>
+<tr><td>Lot</td><td>L26074D</td><td>L26074D</td></tr>
+<tr><td>Expiry</td><td>2028-03-31</td><td>2028-03-31</td></tr></table>
+<ul><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.029) [expected: ELECTRIC WATER PUMP REPLACEMENT KIT | got: FLECTRIC WATER PUMP REPLACEMENT KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>22-blurry-pump-kit - Blurry pump kit label: rejected as illegible</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>blur</code></p>
+<p>Image SHA-256: <code>21e73b386b7210cb42134695ffef9f98c450f9ada78905ce85c163b46809995e</code></p>
+<img src="labels/22-blurry-pump-kit.png" alt="Label 22-blurry-pump-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td><td>FLFCTR1C WATER PUMP REPLACEMENT KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500043</td><td>7501234500043</td></tr>
+<tr><td>Lot</td><td>L26074D</td><td>L26074D</td></tr>
+<tr><td>Expiry</td><td>2028-03-31</td><td>2028-03-31</td></tr></table>
+<ul><li><code>LABEL_ILLEGIBLE</code> (major): label reading quality below threshold; reprint or rescan required [expected: confidence&gt;=0.80 legibility&gt;=0.70 | got: confidence=0.68 legibility=0.55]</li><li><code>TEXT_MISMATCH</code> (critical): product text does not match production order [expected: ELECTRIC WATER PUMP REPLACEMENT KIT | got: FLFCTR1C WATER PUMP REPLACEMENT KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>23-glare-brake-kit - Glare over the brake kit expiry: rejected, date unread</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>glare</code></p>
+<p>Image SHA-256: <code>3aaaff5075a8932015e2599c42a3b4070e6c6f3bccf9349069767f4aa2d5638d</code></p>
+<img src="labels/23-glare-brake-kit.png" alt="Label 23-glare-brake-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HFAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td></td></tr></table>
+<ul><li><code>LABEL_ILLEGIBLE</code> (major): label reading quality below threshold; reprint or rescan required [expected: confidence&gt;=0.80 legibility&gt;=0.70 | got: confidence=0.51 legibility=0.48]</li><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.029) [expected: HEAVY DUTY FRONT BRAKE SERVICE KIT | got: HFAVY DUTY FRONT BRAKE SERVICE KIT]</li><li><code>EXPIRY_UNREADABLE</code> (critical): expiry date cannot be parsed from label [expected: 2027-06-30 | got: ]</li></ul>
+</section>
+
+<section class="">
+<h3>24-month-year-expiry - Expiry printed as month/year (06/2027): accepted format, correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>75e9f88c18638f353459c35e3147baead9cd80595252c2e8ba3e0e1da56a60ac</code></p>
+<img src="labels/24-month-year-expiry.png" alt="Label 24-month-year-expiry">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>06/2027</td><td>06/2027</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>25-slash-expiry - Expiry printed as DD/MM/YYYY (31/01/2027): accepted format, correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>0409b8f6fb120baeaaa6f4e3350a300a9f8be23cf168899e3250cf1575a3d522</code></p>
+<img src="labels/25-slash-expiry.png" alt="Label 25-slash-expiry">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td></tr>
+<tr><td>GTIN</td><td>7501234500029</td><td>7501234500029</td></tr>
+<tr><td>Lot</td><td>L26052B</td><td>L26052B</td></tr>
+<tr><td>Expiry</td><td>31/01/2027</td><td>31/01/2027</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>26-invalid-lot-format - Seeded critical: lot printed with an invalid format</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>e0e65c4f5d8788c2a3b19fc3c1ec0f63b303ca6c555d549f4147d4e9d7e946cd</code></p>
+<img src="labels/26-invalid-lot-format.png" alt="Label 26-invalid-lot-format">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HYDRAULIC HOSE ASSEMBLY REPAIR KIT</td><td>HYDRAULIC HOSE ASSEMBLY REPAIR KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500036</td><td>7501234500036</td></tr>
+<tr><td>Lot</td><td>##BAD##</td><td>##BAD##</td></tr>
+<tr><td>Expiry</td><td>2027-09-30</td><td>2027-09-30</td></tr></table>
+<ul><li><code>LOT_INVALID</code> (critical): lot has invalid format or is unreadable [expected: L26063C | got: ##BAD##]</li></ul>
+</section>
+
+<section class="">
+<h3>27-empty-product-text - Seeded critical: product text missing from the label</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>7a8e94ec0e8811897cfbf9324650ca4479a1df2c2ea08024c23f5f15147223e9</code></p>
+<img src="labels/27-empty-product-text.png" alt="Label 27-empty-product-text">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td></td><td></td></tr>
+<tr><td>GTIN</td><td>7501234500043</td><td>7501234500043</td></tr>
+<tr><td>Lot</td><td>L26074D</td><td>L26074D</td></tr>
+<tr><td>Expiry</td><td>2028-03-31</td><td>2028-03-31</td></tr></table>
+<ul><li><code>TEXT_MISSING</code> (critical): product text is empty or unreadable [expected: ELECTRIC WATER PUMP REPLACEMENT KIT | got: ]</li></ul>
+</section>
+
+<section class="">
+<h3>28-over-quantity - Seeded major: more seals in the box than the order requires</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>30de9b2efab40774c899c09b803b9b7c4f8d781edf27448edc9f2742dc1e32bf</code></p>
+<img src="labels/28-over-quantity.png" alt="Label 28-over-quantity">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td></tr>
+<tr><td>GTIN</td><td>7501234500029</td><td>7501234500029</td></tr>
+<tr><td>Lot</td><td>L26052B</td><td>L26052B</td></tr>
+<tr><td>Expiry</td><td>2027-01-31</td><td>2027-01-31</td></tr></table>
+<ul><li><code>CONTENT_OVER</code> (major): kit component SEAL-02 quantity exceeds the order [expected: SEAL-02 x2 | got: SEAL-02 x5]</li></ul>
+</section>
+
+<section class="">
+<h3>29-wrong-lot-pump-kit - Seeded critical: pump kit lot differs from the order</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>83e2967124322ba32a6eef85a52db493c6c249e2b3e1570a1eb5f25ee4a794d7</code></p>
+<img src="labels/29-wrong-lot-pump-kit.png" alt="Label 29-wrong-lot-pump-kit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td><td>ELECTRIC WATER PUMP REPLACEMENT KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500043</td><td>7501234500043</td></tr>
+<tr><td>Lot</td><td>L99999X</td><td>L99999X</td></tr>
+<tr><td>Expiry</td><td>2028-03-31</td><td>2028-03-31</td></tr></table>
+<ul><li><code>LOT_MISMATCH</code> (critical): lot does not match production order [expected: L26074D | got: L99999X]</li></ul>
 </section>
 
 </body></html>
