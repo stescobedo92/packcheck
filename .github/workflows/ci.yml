@@ -1,0 +1,186 @@
+name: CI
+
+# Verification, build, automated-test reproduction, and security analysis.
+# Every job must pass before a change is considered releasable:
+#   verify   -> format, vet, unit + end-to-end tests (Linux and Windows), race + coverage
+#   build    -> cross-compiled release binaries (Linux, Windows, macOS), pure Go, no CGO
+#   evidence -> reproduces the 29-case label batch through the real CLI and
+#               publishes the generated evidence (images, manifest, reports)
+#   security -> staticcheck, gosec, and govulncheck with pinned tool versions
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+env:
+  # The SQLite driver is pure Go: prove it on every build by disabling CGO.
+  CGO_ENABLED: "0"
+
+jobs:
+  verify:
+    name: Verify (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go (version from go.mod)
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Check formatting (gofmt)
+        shell: bash
+        run: |
+          unformatted="$(gofmt -l .)"
+          if [ -n "$unformatted" ]; then
+            echo "Unformatted files:"
+            echo "$unformatted"
+            exit 1
+          fi
+
+      - name: Vet
+        run: go vet ./...
+
+      - name: Test (unit + end-to-end integration)
+        shell: bash
+        run: go test ./... -count=1 -coverprofile=coverage.out
+
+      - name: Race detector (Linux)
+        if: runner.os == 'Linux'
+        env:
+          CGO_ENABLED: "1" # the race detector requires CGO; tests must still pass
+        run: go test -race ./internal/app ./internal/validation ./internal/store/sqlite -count=1
+
+      - name: Upload coverage
+        if: runner.os == 'Linux'
+        uses: actions/upload-artifact@v4
+        with:
+          name: coverage
+          path: coverage.out
+          retention-days: 14
+
+  build:
+    name: Build (${{ matrix.goos }}/amd64)
+    needs: verify
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        goos: [linux, windows, darwin]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go (version from go.mod)
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build release binary
+        shell: bash
+        env:
+          GOOS: ${{ matrix.goos }}
+          GOARCH: amd64
+        run: |
+          ext=""
+          if [ "$GOOS" = "windows" ]; then ext=".exe"; fi
+          mkdir -p dist
+          go build -trimpath -ldflags="-s -w" -o "dist/packcheck-${GOOS}-amd64${ext}" ./cmd/packcheck
+          ls -l dist
+
+      - name: Upload binary
+        uses: actions/upload-artifact@v4
+        with:
+          name: packcheck-${{ matrix.goos }}-amd64
+          path: dist/*
+          retention-days: 30
+
+  evidence:
+    name: Reproduce evidence batch
+    needs: verify
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go (version from go.mod)
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      - name: Build CLI
+        run: go build -trimpath -o packcheck ./cmd/packcheck
+
+      # runbatch exits 3 when any case does not match its declared ground
+      # truth, so a green step here means the whole matrix reproduced.
+      - name: Seed demo orders into SQLite
+        run: ./packcheck seed --db evidence/packcheck.db
+
+      - name: Run the 29-case label batch
+        run: ./packcheck runbatch --db evidence/packcheck.db --out evidence
+
+      - name: Publish batch summary
+        if: always()
+        shell: bash
+        run: |
+          {
+            echo '## PackCheck batch summary'
+            echo '```text'
+            cat evidence/summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload evidence (images, manifest, reports, database)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: label-evidence
+          path: evidence/
+          retention-days: 30
+
+  security:
+    name: Security analysis
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Go (version from go.mod)
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+          cache: true
+
+      # Tool versions are pinned to the ones the local review ran, so CI
+      # findings are reproducible. Bump deliberately, never via @latest drift.
+      - name: Install analyzers (pinned)
+        run: |
+          go install honnef.co/go/tools/cmd/staticcheck@v0.8.2
+          go install github.com/securego/gosec/v2/cmd/gosec@v2.30.0
+          go install golang.org/x/vuln/cmd/govulncheck@v1.9.0
+
+      - name: staticcheck
+        run: staticcheck ./...
+
+      - name: gosec
+        run: gosec ./...
+
+      - name: govulncheck
+        run: govulncheck ./...
