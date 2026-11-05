@@ -1,0 +1,376 @@
+{
+  "generated_at": "2026-11-05T15:59:45Z",
+  "cases": [
+    {
+      "case_id": "01-clean-font-a",
+      "description": "Clean label, font A, North supplier: correct box",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0001",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "01-clean-font-a.png",
+      "image_sha256": "3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "pass",
+      "expected_codes": [],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "02-clean-font-b-supplier-south",
+      "description": "Clean label, font B, South supplier: correct box",
+      "order_id": "OP-2026-0002",
+      "box_id": "BOX-0002",
+      "shift": "B",
+      "profile": "supplier-b",
+      "image_file": "02-clean-font-b-supplier-south.png",
+      "image_sha256": "30de9b2efab40774c899c09b803b9b7c4f8d781edf27448edc9f2742dc1e32bf",
+      "truth": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "2027-01-31"
+      },
+      "expected_verdict": "pass",
+      "expected_codes": [],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "03-faint-print",
+      "description": "Faint print: degraded text within CER tolerance, critical fields exact",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0003",
+      "shift": "A",
+      "profile": "faint",
+      "image_file": "03-faint-print.png",
+      "image_sha256": "15419300bbc38c1fbee79dc7c36d80c9c92a0286d5028b348020ae70f94c70ee",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "pass_with_warnings",
+      "expected_codes": [
+        "TEXT_DEGRADED"
+      ],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "04-curved-surface",
+      "description": "Label on a curved surface: tolerable degraded text",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0004",
+      "shift": "C",
+      "profile": "curved",
+      "image_file": "04-curved-surface.png",
+      "image_sha256": "22919b8d8d72ccf50d20d2874065b797c27dab3f86363b280fd3a70b24cb0ec2",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "pass_with_warnings",
+      "expected_codes": [
+        "TEXT_DEGRADED"
+      ],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "05-blurry",
+      "description": "Blurry label: reading quality below threshold, must be reprinted",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0005",
+      "shift": "A",
+      "profile": "blur",
+      "image_file": "05-blurry.png",
+      "image_sha256": "c699a10604b73dd309abec58590f8e04d1cdaa0d990ce1c4b928451cf0d96eb8",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "LABEL_ILLEGIBLE"
+      ],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "06-glare",
+      "description": "Film glare covers the expiry date: rejected as illegible with unread date",
+      "order_id": "OP-2026-0002",
+      "box_id": "BOX-0006",
+      "shift": "B",
+      "profile": "glare",
+      "image_file": "06-glare.png",
+      "image_sha256": "2e7ab3aea4f43fb44995498bce831bc0da77f58c0685d0055f035a45aac546ff",
+      "truth": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500029",
+        "lot": "L26052B",
+        "expiry_text": "2027-01-31"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "LABEL_ILLEGIBLE",
+        "EXPIRY_UNREADABLE"
+      ],
+      "seeded_error": false,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "07-wrong-product-gtin",
+      "description": "Seeded critical: valid GTIN of a different product",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0007",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "07-wrong-product-gtin.png",
+      "image_sha256": "98425c88985ebce6e572f12b0e5add69d79e56fb18dec1475f12f911e8df3b78",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500029",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "GTIN_MISMATCH"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "08-invalid-gtin-check-digit",
+      "description": "Seeded critical: GTIN with invalid check digit",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0008",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "08-invalid-gtin-check-digit.png",
+      "image_sha256": "2ecec83f9419e6c434e6a880501b0da2446e41371c330cbbdc56cba1562c1bec",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500013",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "GTIN_INVALID"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "09-wrong-lot",
+      "description": "Seeded critical: lot differs from the order",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0009",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "09-wrong-lot.png",
+      "image_sha256": "3da983d514a44d7beeb24e6e3a226bcae818475ad7d2da595ac502c6f196b1ac",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L99999X",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "LOT_MISMATCH"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "10-wrong-expiry",
+      "description": "Seeded critical: expiry differs from the order",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0010",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "10-wrong-expiry.png",
+      "image_sha256": "b001db0e5d2b5a2f4144253a5c7e86737513e6616e40e35f528b3ec2f5282003",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2028-12-31"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "EXPIRY_MISMATCH"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "11-expired-product",
+      "description": "Seeded critical: expired product",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0011",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "11-expired-product.png",
+      "image_sha256": "e30ffca4f3cf49183b1ad59a8f5a2a59d28b950e154f6d46126671a7c8d71d7b",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2020-01-15"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "EXPIRY_EXPIRED"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "12-unreadable-expiry",
+      "description": "Seeded critical: printed expiry is unreadable",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0012",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "12-unreadable-expiry.png",
+      "image_sha256": "d2342ea6fedad599a9069b3984802cead3caab4ccbc3cdadb99f2b19c0eccb7d",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "##/##/####"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "EXPIRY_UNREADABLE"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "13-wrong-product-label",
+      "description": "Seeded critical: label of a different product",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0013",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "13-wrong-product-label.png",
+      "image_sha256": "97a01de41d353549fc1b562c0e09d3d3cdf874214edcddf5161dd315584026c3",
+      "truth": {
+        "product_text": "INDUSTRIAL REUSABLE AIR FILTER ELEMENT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "TEXT_MISMATCH"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "14-missing-kit-component",
+      "description": "Seeded critical: kit component missing",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0014",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "14-missing-kit-component.png",
+      "image_sha256": "3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "CONTENT_MISSING"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "15-short-kit-quantity",
+      "description": "Seeded critical: component quantity short",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0015",
+      "shift": "C",
+      "profile": "clean",
+      "image_file": "15-short-kit-quantity.png",
+      "image_sha256": "3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "CONTENT_SHORT"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    },
+    {
+      "case_id": "16-extra-component",
+      "description": "Seeded major: component not part of the kit",
+      "order_id": "OP-2026-0001",
+      "box_id": "BOX-0016",
+      "shift": "A",
+      "profile": "clean",
+      "image_file": "16-extra-component.png",
+      "image_sha256": "3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "CONTENT_EXTRA"
+      ],
+      "seeded_error": true,
+      "seeded_critical": false
+    },
+    {
+      "case_id": "17-unknown-order",
+      "description": "Seeded critical: the box claims an order that is not in SQL",
+      "order_id": "OP-9999-9999",
+      "box_id": "BOX-0017",
+      "shift": "B",
+      "profile": "clean",
+      "image_file": "17-unknown-order.png",
+      "image_sha256": "c57e3dc4e90d0d519ef86fe115089d2a6a7006f8bcc17054ff2f921e39f732ce",
+      "truth": {
+        "product_text": "HEAVY DUTY FRONT BRAKE SERVICE KIT",
+        "gtin": "7501234500012",
+        "lot": "L26041A",
+        "expiry_text": "2027-06-30"
+      },
+      "expected_verdict": "reject",
+      "expected_codes": [
+        "ORDER_NOT_FOUND"
+      ],
+      "seeded_error": true,
+      "seeded_critical": true
+    }
+  ]
+}

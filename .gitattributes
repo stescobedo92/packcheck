@@ -1,0 +1,6 @@
+# Normalize line endings to LF in the repository on every platform.
+* text=auto eol=lf
+
+# Binary evidence artifacts: never normalize or diff as text.
+*.png binary
+*.db binary

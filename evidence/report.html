@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en"><head><meta charset="utf-8">
+<title>PackCheck - Batch evidence</title>
+<style>
+body{font-family:system-ui,sans-serif;margin:2rem;color:#111}
+table{border-collapse:collapse;margin:1rem 0}td,th{border:1px solid #ccc;padding:.4rem .6rem;text-align:left}
+.pass{color:#067647;font-weight:700}.reject{color:#b42318;font-weight:700}.fail{background:#fef3f2}
+img{max-width:360px;border:1px solid #ccc}code{background:#f2f4f7;padding:.1rem .3rem}
+</style></head><body>
+<h1>PackCheck - Batch evidence</h1>
+<p>Generated: 2026-11-05T15:59:45Z | OCR engine: <code>deterministic-simulator</code></p>
+<h2>Summary</h2>
+<table>
+<tr><th>Cases</th><td>17</td><th>Matching expectations</th><td>17/17</td></tr>
+<tr><th>Seeded critical recall</th><td>100.0%</td><th>False rejects</th><td>0</td></tr>
+<tr><th>Critical escapes without gate</th><td>10</td><th>Escapes with gate</th><td>0</td></tr>
+<tr><th>Mean cycle per box</th><td>0.000 ms</td><th>Cycle p95</th><td>0.000 ms</td></tr>
+</table>
+<h2>Per-field reading (against the printed label)</h2>
+<table><tr><th>Field</th><th>Success</th><th>Mean CER</th><th>Attempts</th></tr>
+<tr><td>text</td><td>76.5%</td><td>0.0102</td><td>17</td></tr>
+<tr><td>gtin</td><td>100.0%</td><td>0.0000</td><td>17</td></tr>
+<tr><td>lot</td><td>100.0%</td><td>0.0000</td><td>17</td></tr>
+<tr><td>expiry</td><td>94.1%</td><td>0.0588</td><td>17</td></tr>
+</table>
+<h2>Cases</h2>
+
+<section class="">
+<h3>01-clean-font-a - Clean label, font A, North supplier: correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165</code></p>
+<img src="labels/01-clean-font-a.png" alt="Label 01-clean-font-a">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>02-clean-font-b-supplier-south - Clean label, font B, South supplier: correct box</h3>
+<p>Expected: <span class="pass">pass</span> |
+Got: <span class="pass">pass</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>supplier-b</code></p>
+<p>Image SHA-256: <code>30de9b2efab40774c899c09b803b9b7c4f8d781edf27448edc9f2742dc1e32bf</code></p>
+<img src="labels/02-clean-font-b-supplier-south.png" alt="Label 02-clean-font-b-supplier-south">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td></tr>
+<tr><td>GTIN</td><td>7501234500029</td><td>7501234500029</td></tr>
+<tr><td>Lot</td><td>L26052B</td><td>L26052B</td></tr>
+<tr><td>Expiry</td><td>2027-01-31</td><td>2027-01-31</td></tr></table>
+<p>No findings.</p>
+</section>
+
+<section class="">
+<h3>03-faint-print - Faint print: degraded text within CER tolerance, critical fields exact</h3>
+<p>Expected: <span class="pass_with_warnings">pass_with_warnings</span> |
+Got: <span class="pass_with_warnings">pass_with_warnings</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>faint</code></p>
+<p>Image SHA-256: <code>15419300bbc38c1fbee79dc7c36d80c9c92a0286d5028b348020ae70f94c70ee</code></p>
+<img src="labels/03-faint-print.png" alt="Label 03-faint-print">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HFAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.029) [expected: HEAVY DUTY FRONT BRAKE SERVICE KIT | got: HFAVY DUTY FRONT BRAKE SERVICE KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>04-curved-surface - Label on a curved surface: tolerable degraded text</h3>
+<p>Expected: <span class="pass_with_warnings">pass_with_warnings</span> |
+Got: <span class="pass_with_warnings">pass_with_warnings</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>curved</code></p>
+<p>Image SHA-256: <code>22919b8d8d72ccf50d20d2874065b797c27dab3f86363b280fd3a70b24cb0ec2</code></p>
+<img src="labels/04-curved-surface.png" alt="Label 04-curved-surface">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HFAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.029) [expected: HEAVY DUTY FRONT BRAKE SERVICE KIT | got: HFAVY DUTY FRONT BRAKE SERVICE KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>05-blurry - Blurry label: reading quality below threshold, must be reprinted</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>blur</code></p>
+<p>Image SHA-256: <code>c699a10604b73dd309abec58590f8e04d1cdaa0d990ce1c4b928451cf0d96eb8</code></p>
+<img src="labels/05-blurry.png" alt="Label 05-blurry">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HF4VY DUTY FR0NT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>LABEL_ILLEGIBLE</code> (major): label reading quality below threshold; reprint or rescan required [expected: confidence&gt;=0.80 legibility&gt;=0.70 | got: confidence=0.68 legibility=0.55]</li><li><code>TEXT_MISMATCH</code> (critical): product text does not match production order [expected: HEAVY DUTY FRONT BRAKE SERVICE KIT | got: HF4VY DUTY FR0NT BRAKE SERVICE KIT]</li></ul>
+</section>
+
+<section class="">
+<h3>06-glare - Film glare covers the expiry date: rejected as illegible with unread date</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>glare</code></p>
+<p>Image SHA-256: <code>2e7ab3aea4f43fb44995498bce831bc0da77f58c0685d0055f035a45aac546ff</code></p>
+<img src="labels/06-glare.png" alt="Label 06-glare">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td><td>1NDUSTRIAL REUSABLE AIR FILTER ELEMENT</td></tr>
+<tr><td>GTIN</td><td>7501234500029</td><td>7501234500029</td></tr>
+<tr><td>Lot</td><td>L26052B</td><td>L26052B</td></tr>
+<tr><td>Expiry</td><td>2027-01-31</td><td></td></tr></table>
+<ul><li><code>LABEL_ILLEGIBLE</code> (major): label reading quality below threshold; reprint or rescan required [expected: confidence&gt;=0.80 legibility&gt;=0.70 | got: confidence=0.51 legibility=0.48]</li><li><code>TEXT_DEGRADED</code> (minor): product text degraded but recognizable (CER=0.026) [expected: INDUSTRIAL REUSABLE AIR FILTER ELEMENT | got: 1NDUSTRIAL REUSABLE AIR FILTER ELEMENT]</li><li><code>EXPIRY_UNREADABLE</code> (critical): expiry date cannot be parsed from label [expected: 2027-01-31 | got: ]</li></ul>
+</section>
+
+<section class="">
+<h3>07-wrong-product-gtin - Seeded critical: valid GTIN of a different product</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>98425c88985ebce6e572f12b0e5add69d79e56fb18dec1475f12f911e8df3b78</code></p>
+<img src="labels/07-wrong-product-gtin.png" alt="Label 07-wrong-product-gtin">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500029</td><td>7501234500029</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>GTIN_MISMATCH</code> (critical): GTIN belongs to a different product than the order [expected: 7501234500012 | got: 7501234500029]</li></ul>
+</section>
+
+<section class="">
+<h3>08-invalid-gtin-check-digit - Seeded critical: GTIN with invalid check digit</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>2ecec83f9419e6c434e6a880501b0da2446e41371c330cbbdc56cba1562c1bec</code></p>
+<img src="labels/08-invalid-gtin-check-digit.png" alt="Label 08-invalid-gtin-check-digit">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500013</td><td>7501234500013</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>GTIN_INVALID</code> (critical): GTIN is not a valid GTIN-13 (format or check digit) [expected: 7501234500012 | got: 7501234500013]</li></ul>
+</section>
+
+<section class="">
+<h3>09-wrong-lot - Seeded critical: lot differs from the order</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>3da983d514a44d7beeb24e6e3a226bcae818475ad7d2da595ac502c6f196b1ac</code></p>
+<img src="labels/09-wrong-lot.png" alt="Label 09-wrong-lot">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L99999X</td><td>L99999X</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>LOT_MISMATCH</code> (critical): lot does not match production order [expected: L26041A | got: L99999X]</li></ul>
+</section>
+
+<section class="">
+<h3>10-wrong-expiry - Seeded critical: expiry differs from the order</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>b001db0e5d2b5a2f4144253a5c7e86737513e6616e40e35f528b3ec2f5282003</code></p>
+<img src="labels/10-wrong-expiry.png" alt="Label 10-wrong-expiry">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2028-12-31</td><td>2028-12-31</td></tr></table>
+<ul><li><code>EXPIRY_MISMATCH</code> (critical): expiry date does not match production order [expected: 2027-06-30 | got: 2028-12-31]</li></ul>
+</section>
+
+<section class="">
+<h3>11-expired-product - Seeded critical: expired product</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>e30ffca4f3cf49183b1ad59a8f5a2a59d28b950e154f6d46126671a7c8d71d7b</code></p>
+<img src="labels/11-expired-product.png" alt="Label 11-expired-product">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2020-01-15</td><td>2020-01-15</td></tr></table>
+<ul><li><code>EXPIRY_MISMATCH</code> (critical): expiry date does not match production order [expected: 2027-06-30 | got: 2020-01-15]</li><li><code>EXPIRY_EXPIRED</code> (critical): product is already expired [expected: &gt;= 2026-11-05 | got: 2020-01-15]</li></ul>
+</section>
+
+<section class="">
+<h3>12-unreadable-expiry - Seeded critical: printed expiry is unreadable</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>d2342ea6fedad599a9069b3984802cead3caab4ccbc3cdadb99f2b19c0eccb7d</code></p>
+<img src="labels/12-unreadable-expiry.png" alt="Label 12-unreadable-expiry">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>##/##/####</td><td>##/##/####</td></tr></table>
+<ul><li><code>EXPIRY_UNREADABLE</code> (critical): expiry date cannot be parsed from label [expected: 2027-06-30 | got: ##/##/####]</li></ul>
+</section>
+
+<section class="">
+<h3>13-wrong-product-label - Seeded critical: label of a different product</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>97a01de41d353549fc1b562c0e09d3d3cdf874214edcddf5161dd315584026c3</code></p>
+<img src="labels/13-wrong-product-label.png" alt="Label 13-wrong-product-label">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td><td>INDUSTRIAL REUSABLE AIR FILTER ELEMENT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>TEXT_MISMATCH</code> (critical): product text does not match production order [expected: HEAVY DUTY FRONT BRAKE SERVICE KIT | got: INDUSTRIAL REUSABLE AIR FILTER ELEMENT]</li></ul>
+</section>
+
+<section class="">
+<h3>14-missing-kit-component - Seeded critical: kit component missing</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165</code></p>
+<img src="labels/14-missing-kit-component.png" alt="Label 14-missing-kit-component">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>CONTENT_MISSING</code> (critical): kit component ROTOR-01 is missing [expected: ROTOR-01 x2 | got: ROTOR-01 x0]</li></ul>
+</section>
+
+<section class="">
+<h3>15-short-kit-quantity - Seeded critical: component quantity short</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: C | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165</code></p>
+<img src="labels/15-short-kit-quantity.png" alt="Label 15-short-kit-quantity">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>CONTENT_SHORT</code> (critical): kit component PAD-01 quantity is short [expected: PAD-01 x4 | got: PAD-01 x3]</li></ul>
+</section>
+
+<section class="">
+<h3>16-extra-component - Seeded major: component not part of the kit</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: A | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>3514fa1715c8da0bc04e36512db29249e30789ea866ac0e31dde3726e3e62165</code></p>
+<img src="labels/16-extra-component.png" alt="Label 16-extra-component">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>CONTENT_EXTRA</code> (major): component SCREW-99 is not part of the order [expected: not present | got: SCREW-99 x2]</li></ul>
+</section>
+
+<section class="">
+<h3>17-unknown-order - Seeded critical: the box claims an order that is not in SQL</h3>
+<p>Expected: <span class="reject">reject</span> |
+Got: <span class="reject">reject</span> |
+Matches: <strong>true</strong> | Shift: B | Profile: <code>clean</code></p>
+<p>Image SHA-256: <code>c57e3dc4e90d0d519ef86fe115089d2a6a7006f8bcc17054ff2f921e39f732ce</code></p>
+<img src="labels/17-unknown-order.png" alt="Label 17-unknown-order">
+<table><tr><th>Field</th><th>Printed (truth)</th><th>Read</th></tr>
+<tr><td>Text</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td><td>HEAVY DUTY FRONT BRAKE SERVICE KIT</td></tr>
+<tr><td>GTIN</td><td>7501234500012</td><td>7501234500012</td></tr>
+<tr><td>Lot</td><td>L26041A</td><td>L26041A</td></tr>
+<tr><td>Expiry</td><td>2027-06-30</td><td>2027-06-30</td></tr></table>
+<ul><li><code>ORDER_NOT_FOUND</code> (critical): production order does not exist in SQL orders table [expected: existing order | got: OP-9999-9999]</li></ul>
+</section>
+
+</body></html>

@@ -1,0 +1,34 @@
+PackCheck - batch summary
+Generated: 2026-11-05T15:59:45Z | OCR engine: deterministic-simulator
+
+Cases: 17 | Passed: 4 | Rejected: 13 | Matching expectations: 17/17
+Seeded-error recall: 100.0% (11/11) | Critical recall: 100.0% (10/10)
+False rejects: 0
+Critical escapes without gate: 10 | with gate: 0
+Simulated returns per 1000 boxes (demo batch): before=588.2 after=0.0
+Cycle per box: mean=0.000ms p50=0.000ms p95=0.000ms max=0.000ms
+
+Per-field reading (against the printed label):
+  text     success=76.5% meanCER=0.0102 attempts=17 exact=13
+  gtin     success=100.0% meanCER=0.0000 attempts=17 exact=17
+  lot      success=100.0% meanCER=0.0000 attempts=17 exact=17
+  expiry   success=94.1% meanCER=0.0588 attempts=17 exact=16
+
+Cases:
+  [OK  ] 01-clean-font-a                  expected=pass               got=pass               image=01-clean-font-a.png
+  [OK  ] 02-clean-font-b-supplier-south   expected=pass               got=pass               image=02-clean-font-b-supplier-south.png
+  [OK  ] 03-faint-print                   expected=pass_with_warnings got=pass_with_warnings image=03-faint-print.png
+  [OK  ] 04-curved-surface                expected=pass_with_warnings got=pass_with_warnings image=04-curved-surface.png
+  [OK  ] 05-blurry                        expected=reject             got=reject             image=05-blurry.png
+  [OK  ] 06-glare                         expected=reject             got=reject             image=06-glare.png
+  [OK  ] 07-wrong-product-gtin            expected=reject             got=reject             image=07-wrong-product-gtin.png
+  [OK  ] 08-invalid-gtin-check-digit      expected=reject             got=reject             image=08-invalid-gtin-check-digit.png
+  [OK  ] 09-wrong-lot                     expected=reject             got=reject             image=09-wrong-lot.png
+  [OK  ] 10-wrong-expiry                  expected=reject             got=reject             image=10-wrong-expiry.png
+  [OK  ] 11-expired-product               expected=reject             got=reject             image=11-expired-product.png
+  [OK  ] 12-unreadable-expiry             expected=reject             got=reject             image=12-unreadable-expiry.png
+  [OK  ] 13-wrong-product-label           expected=reject             got=reject             image=13-wrong-product-label.png
+  [OK  ] 14-missing-kit-component         expected=reject             got=reject             image=14-missing-kit-component.png
+  [OK  ] 15-short-kit-quantity            expected=reject             got=reject             image=15-short-kit-quantity.png
+  [OK  ] 16-extra-component               expected=reject             got=reject             image=16-extra-component.png
+  [OK  ] 17-unknown-order                 expected=reject             got=reject             image=17-unknown-order.png
